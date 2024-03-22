@@ -29,8 +29,10 @@ public class UserResource {
 	 * @return
 	 */
 	@RequestMapping(value = "/resource/user", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public Mono<ResponseEntity<?>> user(Principal principal) {
 		return Mono.just(ResponseEntity.ok(principal.toString()));
 	}
 }
+
+
