@@ -3,7 +3,7 @@ package net.java.forest.utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import net.java.forest.model.Userdata;
+import net.java.forest.model.users_table;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -43,7 +43,7 @@ public class JWTUtil implements Serializable {
 		return expiration.before(new Date());
 	}
 	
-	public String generateToken(Userdata user) {
+	public String generateToken(users_table user) {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("role", user.getRoles());
 		return doGenerateToken(claims, user.getEmail());

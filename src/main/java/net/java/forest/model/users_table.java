@@ -17,28 +17,28 @@ import java.util.stream.Collectors;
 /**
  * User model
  */
-public class Userdata implements UserDetails {
+public class users_table implements UserDetails {
     @Id
     private Long id;
-    @NotBlank(message = "Firstname should not be empty")
-    private String firstName;
-    @NotBlank(message = "Lastname should not be empty")
-    private String lastName;
+    // @NotBlank(message = "Firstname should not be empty")
+    // private String firstName;
+    // @NotBlank(message = "Lastname should not be empty")
+    // private String lastName;
     @NotBlank(message = "Password should not be empty")
     private String password;
     @Email(message = "Invalid email address")
     //@UniqueElements(message = "Should be unique")
     private String email;
-    @NotBlank(message = "Address should not be empty")
+    // @NotBlank(message = "Address should not be empty")
     private String address;
     @NotEmpty( message = "Roles should not be empty")
     private List<@NotBlank(message = "Role should not be empty")String> roles;
     private Boolean enabled;
 
-    public Userdata(Long id, String firstName, String lastName, String password, String email, String address, List<String> roles ) {
+    public users_table(Long id,  String password, String email, String address, List<String> roles ) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        // this.firstName = firstName;
+        // this.lastName = lastName;
         this.password = password;
         this.email = email;
         this.address = address;
@@ -46,14 +46,14 @@ public class Userdata implements UserDetails {
         this.enabled = true;
     }
 
-    public Userdata(String email, String password, boolean enabled, List<String> asList) {
+    public users_table(String email, String password, boolean enabled, List<String> asList) {
         this.enabled = enabled;
         this.email = email;
         this.password = password;
         this.roles = asList;
     }
 
-    public Userdata() {
+    public users_table() {
     }
 
     public Boolean getEnabled() {
@@ -88,21 +88,21 @@ public class Userdata implements UserDetails {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
+    // public String getFirstName() {
+    //     return firstName;
+    // }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+    // public void setFirstName(String firstName) {
+    //     this.firstName = firstName;
+    // }
 
-    public String getLastName() {
-        return lastName;
-    }
+    // public String getLastName() {
+    //     return lastName;
+    // }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+    // public void setLastName(String lastName) {
+    //     this.lastName = lastName;
+    // }
 
 
     @Override
@@ -158,8 +158,8 @@ public class Userdata implements UserDetails {
     public String toString() {
         return "Userdata{" +
                 "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                // ", firstName='" + firstName + '\'' +
+                // ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
