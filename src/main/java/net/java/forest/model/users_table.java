@@ -3,6 +3,7 @@ package net.java.forest.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,6 +31,7 @@ public class users_table implements UserDetails {
     //@UniqueElements(message = "Should be unique")
     private String email;
     // @NotBlank(message = "Address should not be empty")
+    @Transient
     private String address;
     @NotEmpty( message = "Roles should not be empty")
     private List<@NotBlank(message = "Role should not be empty")String> roles;

@@ -23,6 +23,11 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityWebFilterChain securitygWebFilterChain(ServerHttpSecurity http) {
+
+		// return http.csrf().disable().formLogin().disable()
+		// 	.httpBasic().disable().authorizeExchange()
+		// 	.pathMatchers("/**").permitAll()
+		// 	.anyExchange().authenticated().and().build();
 		return http
 				.exceptionHandling()
 				.authenticationEntryPoint((swe, e) -> {
@@ -41,7 +46,7 @@ public class WebSecurityConfig {
 				.securityContextRepository(securityContextRepository)
 				.authorizeExchange()
 				.pathMatchers(HttpMethod.OPTIONS).permitAll()
-				.pathMatchers("/login", "/signup","/{Id}","/").permitAll()
+				.pathMatchers("/login", "/signup","/{Id}","/","/log","/****").permitAll()
 				.anyExchange().authenticated()
 				.and().build();
 	}

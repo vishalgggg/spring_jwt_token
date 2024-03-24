@@ -24,24 +24,29 @@ public class UserService {
     public Mono<users_table> addUpdateUser(users_table userdata) {
         return userRepository.save(userdata);
     }
-    public Mono<Void> deleteById(Long Id)
-    {
+
+    public Mono<Void> deleteById(Long Id) {
         return userRepository.deleteById(Id);
     }
-    public Mono<users_table> updateById(Long Id,users_table newuserdata)
-    {
-        return userRepository.findById(Id).map(oldUserdata -> {
-            oldUserdata.setId(Id);
-            return oldUserdata;
-    //         oldUserdata.setAddress(newuserdata.getAddress());
-    //         oldUserdata.setEmail(newuserdata.getEmail());
-    //         oldUserdata.setEnabled(newuserdata.getEnabled());
-    //         oldUserdata.setFirstName(newuserdata.getFirstName());
-    //         oldUserdata.setLastName(newuserdata.getLastName());
-    //         oldUserdata.se
+    // return repository.findById(id)
+    //             .flatMap(p->productDtoMono.map(AppUtils::dtoToEntity)
+    //             .doOnNext(e->e.setId(id)))
+    //             .flatMap(repository::save)
+    //             .map(AppUtils::entityToDto);
+    // refernce - 
+
+    public Mono<users_table> updateById(Long Id, users_table newuserdata) {
+        return userRepository.findById(Id).flatMap(oldUserdata -> {
+            // oldUserdata.setId(Id);
+            // oldUserdata.setId(newuserdata.getId());
+            // oldUserdata.setAddress(newuserdata.getAddress());
+            oldUserdata.setEmail(newuserdata.getEmail());
+
+            oldUserdata.setRoles(newuserdata.getRoles());
+            return userRepository.save(oldUserdata);
+            //return oldUserdata;
 
         });
     }
-   
 
 }

@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 // import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,7 +49,7 @@ public class LoginSignup {
 	 * @return
 	 */
     // @RequestMapping(value ="/", method = RequestMethod.POST)
-    @PostMapping("/")
+    @PostMapping("/log")
     public Mono<ResponseEntity<?>> login(@RequestBody LoginRequest request) {
         return userService.findByUsername(request.getUsername()).map((userDetails) -> {
             if (passwordEncoder.encode(request.getPassword()).equals(userDetails.getPassword())) {
@@ -67,7 +66,7 @@ public class LoginSignup {
     {
         return userService.deleteById(Id);
     }
-    @GetMapping("/")
+    @GetMapping("/log")
     public Flux<users_table> getAllUser()
     {
         return userService.getAllUser();
