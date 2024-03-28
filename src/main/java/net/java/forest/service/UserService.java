@@ -13,13 +13,23 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    private users_table UserNotExist(users_table user_detail) 
+    {
+        if (user_detail == null) {
+            throw new UserNotFound("user not found");
+        }
+        return user_detail;
+    }
+
     public Mono<users_table> findByUsername(String username) {
         Mono<users_table> data = userRepository.findByEmail(username);
-        return data.switchIfEmpty(Mono.empty().error(throw new UserNotFound("email not ")));
+        return data.map ( user_detail -> UserNotExist(user_detail) );
+
     }
 
     public Flux<users_table> getAllUser() {
-        return userRepository.findAll();
+        return userRepository.findAll()
+                .map(user_detail -> UserNotExist(user_detail) );
     }
 
     public Mono<users_table> addUpdateUser(users_table userdata) {
@@ -27,25 +37,39 @@ public class UserService {
     }
 
     public Mono<Void> deleteById(Long Id) {
-        return userRepository.deleteById(Id);
+        return userRepository.deleteById(Id)
+        .map(user_detail -> {
+            if (user_detail == null) {
+                throw new UserNotFound("user already Deleted");
+            }
+            return user_detail;
+        });
     }
+
+
+
+
+
+    
     // return repository.findById(id)
-    //             .flatMap(p->productDtoMono.map(AppUtils::dtoToEntity)
-    //             .doOnNext(e->e.setId(id)))
-    //             .flatMap(repository::save)
-    //             .map(AppUtils::entityToDto);
-    // refernce - 
+    // .flatMap(p->productDtoMono.map(AppUtils::dtoToEntity)
+    // .doOnNext(e->e.setId(id)))
+    // .flatMap(repository::save)
+    // .map(AppUtils::entityToDto);
+    // refernce -
 
     public Mono<users_table> updateById(Long Id, users_table newuserdata) {
         return userRepository.findById(Id).flatMap(oldUserdata -> {
             // oldUserdata.setId(Id);
             // oldUserdata.setId(newuserdata.getId());
             // oldUserdata.setAddress(newuserdata.getAddress());
+            if (oldUserdata == null)
+                throw new UserNotFound("user not found");
             oldUserdata.setEmail(newuserdata.getEmail());
 
             oldUserdata.setRoles(newuserdata.getRoles());
             return userRepository.save(oldUserdata);
-            //return oldUserdata;
+            // return oldUserdata;
 
         });
     }
