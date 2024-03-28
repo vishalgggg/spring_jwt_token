@@ -18,6 +18,7 @@ public class UserResource {
 	 * @param principal
 	 * @return
 	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public Mono<ResponseEntity<?>> publicUser(Principal principal) {
 		return Mono.just(ResponseEntity.ok(principal.toString()));

@@ -27,7 +27,6 @@ public class JavaforestService {
 		SpringApplication.run(JavaforestService.class, args);
 	}
 
-	@Bean
 	public ApplicationRunner seeder(DatabaseClient client) {
 		return args -> getSchema()
 			.flatMap(sql -> executeSql(client, sql))
@@ -47,4 +46,17 @@ public class JavaforestService {
 			.using(() -> Files.lines(path), Flux::fromStream, BaseStream::close)
 			.reduce((line1, line2) -> line1 + "\n" + line2);
 	}
+	// private Mono<String> getSchema() {
+	// 	return Mono.fromCallable(() -> {
+	// 		try (InputStream is = getClass().getClassLoader().getResourceAsStream("schema.sql")) {
+	// 			if (is == null) {
+	// 				throw new IllegalStateException("schema.sql not found");
+	// 			}
+	// 			return new BufferedReader(new InputStreamReader(is))
+	// 					.lines()
+	// 					.collect(Collectors.joining("\n"));
+	// 		}
+	// 	});
+	// }
+	
 }

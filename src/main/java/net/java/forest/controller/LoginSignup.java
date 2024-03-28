@@ -12,6 +12,7 @@ import net.java.forest.service.UtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 // import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -61,17 +62,20 @@ public class LoginSignup {
         }).defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
     @RequestMapping(value = "/{Id}", method = RequestMethod.DELETE)
-    // @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    // @GetMapping("/{Id}")
     public Mono<Void> deleteBYId(@PathVariable Long Id)
     {
         return userService.deleteById(Id);
     }
-    @GetMapping("/log")
+    @GetMapping("/userlog")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public Flux<users_table> getAllUser()
     {
         return userService.getAllUser();
     }
     @PutMapping("/{Id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Mono<users_table> updateById(@PathVariable Long  Id,@RequestBody users_table newuser)
     {
         return userService.updateById(Id, newuser);

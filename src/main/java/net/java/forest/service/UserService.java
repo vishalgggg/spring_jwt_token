@@ -1,5 +1,6 @@
 package net.java.forest.service;
 
+import net.java.forest.Exception.UserNotFound;
 import net.java.forest.model.users_table;
 import net.java.forest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class UserService {
 
     public Mono<users_table> findByUsername(String username) {
         Mono<users_table> data = userRepository.findByEmail(username);
-        return data.switchIfEmpty(Mono.empty());
+        return data.switchIfEmpty(Mono.empty().error(throw new UserNotFound("email not ")));
     }
 
     public Flux<users_table> getAllUser() {
