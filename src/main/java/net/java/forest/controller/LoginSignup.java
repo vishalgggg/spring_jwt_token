@@ -52,20 +52,25 @@ public class LoginSignup {
     // @RequestMapping(value ="/", method = RequestMethod.POST)
     @PostMapping("/log")
     public Mono<ResponseEntity<?>> login(@RequestBody LoginRequest request) {
+        
         return userService.findByUsername(request.getUsername()).map((userDetails) -> {
             if (passwordEncoder.encode(request.getPassword()).equals(userDetails.getPassword())) {
+                log.info("{} user name logged in" ,request.getUsername());
                 return ResponseEntity.ok(new LoginResponse(jwtUtil.generateToken(userDetails)));
             } else {
                 log.info("password not matching");
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
-        }).defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+        })
+        
+        .defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
     @RequestMapping(value = "/{Id}", method = RequestMethod.DELETE)
     @PreAuthorize("hasRole('ROLE_USER')")
     // @GetMapping("/{Id}")
     public Mono<Void> deleteBYId(@PathVariable Long Id)
     {
+        
         return userService.deleteById(Id);
     }
     @GetMapping("/userlog")
@@ -89,6 +94,7 @@ public class LoginSignup {
     public Mono<ResponseEntity<?>> createPerson(@RequestBody users_table user) {
         String message = util.validation(user);
        // String message ="";
+        log.info(user.getEmail()+"   "+ user.getRoles()+  "  "+ user.getUsername());
         if (message.isEmpty()) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             return Mono.just(ResponseEntity.ok(userService.addUpdateUser(user)));

@@ -15,7 +15,8 @@ public class UtilService {
     private  Validator validator;
 
     public  <T> String validation(T t) {
-        log.info(t.toString());
+        
+        // log.info(t.toString());
         Iterator<ConstraintViolation<T>> it = validator.validate(t).iterator();
         String message = "";
         while (it.hasNext()) {
