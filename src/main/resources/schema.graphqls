@@ -1,0 +1,38 @@
+type Author{
+    id: ID
+    firstName:String
+    lastName:String
+}
+
+type Mutation {
+
+    addAuthor(authorInput:AuthorInput!):Author
+}
+type Mutation{
+    addBook(bookInput:BookInput!):Book
+}
+input AuthorInput {
+    firstName:String!
+    lastName:String!
+}
+type Book{
+    id:ID
+    title:String
+    isbn:String
+    pageCount:Int
+
+    author:Author
+}
+type BookInput {
+    title:String!
+    isbn:String!
+    pageCount:Int!
+
+    author:Author!
+
+}
+
+
+
+
+

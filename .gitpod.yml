@@ -4,12 +4,13 @@
 
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
 tasks:
-  - before: sdk install java 8.0.302-open
+  - before: sdk install java 8.0.292-zulu < /dev/null   
   - init: sudo service postgresql start
 
 
   - init: mvn install -DskipTests=false
 image: gitpod/workspace-postgres
+  
 
 
 
