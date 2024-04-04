@@ -46,7 +46,7 @@ public class WebSecurityConfig {
                                         .securityContextRepository(securityContextRepository)
                                         .authorizeExchange(exchange -> exchange
                                                 .pathMatchers(HttpMethod.OPTIONS).permitAll()
-                                                .pathMatchers( "/signup", "/log").permitAll()
+                                                .pathMatchers( "/signup", "/log","/graphql").permitAll()
                                                 .anyExchange().authenticated())))).build();
 	}
 }
