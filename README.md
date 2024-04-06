@@ -19,5 +19,5 @@ password : 12345
 <br />After geting the token check this endpoint for secure data  
 **cURL** : curl -v -X GET http://localhost:8080/resource/user -H "Authorization: Bearer {token}"
 
-## Signup new user
-**cURL** : curl -v -X POST http://localhost:8080/signup -H "Content-Type: application/json; charset=UTF-8" -d "{\"email\" : \"mahade@gmail.com\",\"password\" : \"12345\",\"firstName\" : \"mahade\",\"lastName\" :\"hassan\",\"roles\" : [\"ROLE_USER\"],\"address\": \"Bheramara\", \"enabled\": true}"
+
+
