@@ -1,6 +1,6 @@
 # SpringWebflux-SecurityWithJWT-PostgressDB
 
-Spring webflux security application with JWT(json web token) and R2DBC Postgress Database (DBMS)
+Spring framework webflux security application with JWT(json web token) and R2DBC Postgress Database Sytem
 
 ## To run the project
 spring.r2dbc.url=r2dbc:postgresql://localhost/javaforest     
